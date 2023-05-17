@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class TankPawn : Pawn
 {
+    private const float ForwardDirection = 1f;
+    private const float BackwardDirection = -1f;
+    public float forwardMoveSpeed = 5f;
+    public float backwardMoveSpeed = 3f;
+
     public override void MoveBackward()
     {
-        Debug.Log("Move backwards");
+        mover.Move(backwardMoveSpeed, BackwardDirection);
         base.MoveBackward();
     }
 
     public override void MoveForward()
     {
-        Debug.Log("Move forwards");
+        mover.Move(forwardMoveSpeed, ForwardDirection);
         base.MoveForward();
     }
 
@@ -25,7 +30,7 @@ public class TankPawn : Pawn
     // Start is called before the first frame update
     public override void Start()
     {
-        
+        mover = GetComponent<TankMover>();
     }
 
     // Update is called once per frame

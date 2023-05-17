@@ -5,6 +5,11 @@ using UnityEngine;
 [RequireComponent(typeof(TankPawn))]
 public class PlayerController : Controller
 {
+    public KeyCode forwardKeyCode;
+    public KeyCode backwardKeyCode;
+    public KeyCode leftKeyCode;
+    public KeyCode rightKeyCode;
+
     private TankPawn playerPawn;
 
     // Start is called before the first frame update
@@ -23,19 +28,19 @@ public class PlayerController : Controller
 
     private void ProcessInputs()
     {
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(forwardKeyCode))
         {
             playerPawn.MoveForward();
         }
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(backwardKeyCode))
         {
             playerPawn.MoveBackward();
         }
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(leftKeyCode))
         {
             playerPawn.Rotate(-1f);
         }
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(rightKeyCode))
         {
             playerPawn.Rotate(1f);
         }
