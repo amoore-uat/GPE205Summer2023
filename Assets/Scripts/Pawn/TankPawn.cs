@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(TankMover))]
 public class TankPawn : Pawn
 {
     private const float ForwardDirection = 1f;
     private const float BackwardDirection = -1f;
     public float forwardMoveSpeed = 5f;
     public float backwardMoveSpeed = 3f;
+    public float tankRotationSpeed = 60f;
 
     public override void MoveBackward()
     {
@@ -23,7 +25,7 @@ public class TankPawn : Pawn
 
     public override void Rotate(float direction)
     {
-        Debug.Log("Rotate");
+        mover.Rotate(tankRotationSpeed, direction);
         base.Rotate(direction);
     }
 
