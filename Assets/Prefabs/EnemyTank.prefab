@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1971935871517008801, guid: ea4b1d3d6770e1744817c5370d5a5ec2, type: 3}
       propertyPath: m_Name
-      value: Tank
+      value: EnemyTank
       objectReference: {fileID: 0}
     - target: {fileID: 3260782784029097133, guid: ea4b1d3d6770e1744817c5370d5a5ec2, type: 3}
       propertyPath: m_RootOrder
@@ -57,3 +57,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea4b1d3d6770e1744817c5370d5a5ec2, type: 3}
+--- !u!1 &6268645194195380396 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1971935871517008801, guid: ea4b1d3d6770e1744817c5370d5a5ec2, type: 3}
+  m_PrefabInstance: {fileID: 5594326901669137165}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3014388765838824637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6268645194195380396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c13e8c782b790c347b8e971474f1efd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

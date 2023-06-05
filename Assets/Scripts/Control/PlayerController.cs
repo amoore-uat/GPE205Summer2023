@@ -9,6 +9,7 @@ public class PlayerController : Controller
     public KeyCode backwardKeyCode;
     public KeyCode leftKeyCode;
     public KeyCode rightKeyCode;
+    public KeyCode shootKeyCode;
 
     private TankPawn playerPawn;
 
@@ -57,6 +58,10 @@ public class PlayerController : Controller
         if (Input.GetKey(rightKeyCode))
         {
             playerPawn.Rotate(1f);
+        }
+        if (Input.GetKeyDown(shootKeyCode))
+        {
+            playerPawn.Shoot();
         }
     }
 }

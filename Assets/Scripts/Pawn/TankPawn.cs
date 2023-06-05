@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,12 @@ public class TankPawn : Pawn
     public float forwardMoveSpeed = 5f;
     public float backwardMoveSpeed = 3f;
     public float tankRotationSpeed = 60f;
+    public float fireForce = 1000f;
+    public float damageDone = 20f;
+    public float shellLifespan = 1.5f;
+    public GameObject shellPrefab;
+    public float shotCooldownTime = 1f;
+    private float secondsSinceLastShot = Mathf.Infinity;
 
     public override void MoveBackward()
     {
@@ -33,11 +40,24 @@ public class TankPawn : Pawn
     public override void Start()
     {
         mover = GetComponent<TankMover>();
+        shooter = GetComponent<TankShooter>();
+        base.Start();
     }
 
     // Update is called once per frame
     public override void Update()
     {
-        
+        secondsSinceLastShot += Time.deltaTime;
+        base.Update();
+    }
+
+    public override void Shoot()
+    {
+        if (secondsSinceLastShot > shotCooldownTime)
+        {
+            shooter.Shoot(shellPrefab, fireForce, damageDone, shellLifespan);
+            secondsSinceLastShot = 0f;
+            base.Shoot();
+        }
     }
 }

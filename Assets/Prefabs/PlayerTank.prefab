@@ -86,3 +86,4 @@ MonoBehaviour:
   backwardKeyCode: 115
   leftKeyCode: 97
   rightKeyCode: 100
+  shootKeyCode: 32

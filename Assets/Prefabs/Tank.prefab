@@ -33,6 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8296583971273943070}
+  - {fileID: 2431840296551050471}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -50,6 +51,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forwardMoveSpeed: 5
   backwardMoveSpeed: 3
+  tankRotationSpeed: 60
+  fireForce: 1000
+  damageDone: 20
+  shellLifespan: 1.5
+  shellPrefab: {fileID: 5406722492111500338, guid: 98156af88378529459323cdb2e9ba309, type: 3}
+  shotCooldownTime: 1
 --- !u!54 &8186342988978980601
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -90,6 +97,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9aa0fa782ced24498ba6805a7c3a54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firepointTransform: {fileID: 2431840296551050471}
+--- !u!1 &9042914072699975378
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2431840296551050471}
+  m_Layer: 0
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2431840296551050471
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9042914072699975378}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.6, z: 1.35}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3260782784029097133}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &8406490248108232693
 PrefabInstance:
   m_ObjectHideFlags: 0
