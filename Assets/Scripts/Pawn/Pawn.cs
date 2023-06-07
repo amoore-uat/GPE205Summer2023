@@ -37,4 +37,7 @@ public abstract class Pawn : MonoBehaviour
     {
 
     }
+
+    public abstract void RotateTowards(Vector3 targetPosition);
+
 }

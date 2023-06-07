@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(TankMover))]
+[RequireComponent(typeof(TankShooter))]
 public class TankPawn : Pawn
 {
     private const float ForwardDirection = 1f;
@@ -59,5 +60,13 @@ public class TankPawn : Pawn
             secondsSinceLastShot = 0f;
             base.Shoot();
         }
+    }
+
+    public override void RotateTowards(Vector3 targetPosition)
+    {
+        Vector3 vectorToTarget = targetPosition - transform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(vectorToTarget, Vector3.up);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, tankRotationSpeed * Time.deltaTime);
+
     }
 }

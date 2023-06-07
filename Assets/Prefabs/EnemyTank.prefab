@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyTank
       objectReference: {fileID: 0}
+    - target: {fileID: 1971935871517008801, guid: ea4b1d3d6770e1744817c5370d5a5ec2, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 3260782784029097133, guid: ea4b1d3d6770e1744817c5370d5a5ec2, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -74,3 +78,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13e8c782b790c347b8e971474f1efd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: 1
+  target: {fileID: 0}

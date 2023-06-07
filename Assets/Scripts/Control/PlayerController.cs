@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(TankPawn))]
+//[RequireComponent(typeof(TankPawn))]
 public class PlayerController : Controller
 {
     public KeyCode forwardKeyCode;
@@ -11,12 +11,12 @@ public class PlayerController : Controller
     public KeyCode rightKeyCode;
     public KeyCode shootKeyCode;
 
-    private TankPawn playerPawn;
+    
 
     // Start is called before the first frame update
     public override void Start()
     {
-        playerPawn = GetComponent<TankPawn>();
+        pawn = GetComponent<Pawn>();
 
         if (GameManager.Instance)
         {
@@ -45,23 +45,23 @@ public class PlayerController : Controller
     {
         if (Input.GetKey(forwardKeyCode))
         {
-            playerPawn.MoveForward();
+            pawn.MoveForward();
         }
         if (Input.GetKey(backwardKeyCode))
         {
-            playerPawn.MoveBackward();
+            pawn.MoveBackward();
         }
         if (Input.GetKey(leftKeyCode))
         {
-            playerPawn.Rotate(-1f);
+            pawn.Rotate(-1f);
         }
         if (Input.GetKey(rightKeyCode))
         {
-            playerPawn.Rotate(1f);
+            pawn.Rotate(1f);
         }
         if (Input.GetKeyDown(shootKeyCode))
         {
-            playerPawn.Shoot();
+            pawn.Shoot();
         }
     }
 }
