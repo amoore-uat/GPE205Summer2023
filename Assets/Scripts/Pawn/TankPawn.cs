@@ -7,8 +7,9 @@ using UnityEngine;
 [RequireComponent(typeof(TankShooter))]
 public class TankPawn : Pawn
 {
-    private const float ForwardDirection = 1f;
-    private const float BackwardDirection = -1f;
+    public const float ForwardDirection = 1f;
+    public const float BackwardDirection = -1f;
+
     public float forwardMoveSpeed = 5f;
     public float backwardMoveSpeed = 3f;
     public float tankRotationSpeed = 60f;
