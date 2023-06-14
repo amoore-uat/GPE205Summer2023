@@ -12,6 +12,7 @@ public class AIController : Controller
     private float lastStateChangeTime = 0f;
     public GameObject target;
     public Transform post;
+    public float fieldOfView = 30f;
 
     public override void Start()
     {
@@ -36,8 +37,10 @@ public class AIController : Controller
                 // Check for transitions
                 foreach (Controller playerController in GameManager.Instance.players)
                 {
+                    
                     if (CanSee(playerController.gameObject))
                     {
+                        Debug.Log("I saw a player");
                         target = playerController.gameObject;
                         ChangeAIState(AIState.Chase);
                         return;
@@ -126,14 +129,30 @@ public class AIController : Controller
         }
     }
 
-    private bool CanHear(GameObject gameObject)
+    private bool CanHear(GameObject targetGameObject)
     {
         return false;
     }
 
-    private bool CanSee(GameObject gameObject)
+    private bool CanSee(GameObject targetGameObject)
     {
-        return true;
+        Vector3 agentToTargetVector = targetGameObject.transform.position - transform.position;
+        
+        if (Vector3.Angle(agentToTargetVector, transform.forward) <= fieldOfView)
+        {
+            
+            Vector3 raycastDirection = targetGameObject.transform.position - pawn.transform.position;
+            RaycastHit hit;
+            Physics.Raycast(transform.position, raycastDirection, out hit);
+            if (Physics.Raycast(transform.position, raycastDirection, out hit))
+            {
+                if (hit.collider.transform.parent != null)
+                {
+                    return (hit.collider.transform.parent.gameObject == targetGameObject);
+                }
+            }
+        }
+        return false;
     }
 
     private void DoAttackState()

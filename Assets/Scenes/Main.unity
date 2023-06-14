@@ -370,14 +370,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3014388765838824637, guid: 10503e814aed05549a8f267c3f9faa96, type: 3}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 1903360335}
-    - target: {fileID: 3014388765838824637, guid: 10503e814aed05549a8f267c3f9faa96, type: 3}
-      propertyPath: currentState
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 6268645194195380396, guid: 10503e814aed05549a8f267c3f9faa96, type: 3}
       propertyPath: m_Name
       value: EnemyTank
@@ -525,11 +517,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1903360335 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7310630599237781938, guid: 8ff41d5df756c19468c928b50e217fcd, type: 3}
-  m_PrefabInstance: {fileID: 2139376393}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2139376393
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -537,6 +524,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 450810175847110839, guid: 8ff41d5df756c19468c928b50e217fcd, type: 3}
+      propertyPath: m_Name
+      value: UATank
+      objectReference: {fileID: 0}
     - target: {fileID: 4913912926077108450, guid: 8ff41d5df756c19468c928b50e217fcd, type: 3}
       propertyPath: forwardMoveSpeed
       value: 40
