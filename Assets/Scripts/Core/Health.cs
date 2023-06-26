@@ -23,6 +23,16 @@ public class Health : MonoBehaviour
             Die(source);
         }
     }
+    
+    public void ApplyHealing(float value)
+    {
+        if (value < 0)
+        {
+            Debug.LogWarning("Attempted to heal for negative amount");
+            return;
+        }
+        currentHealth = Mathf.Clamp(currentHealth + value, minHealth, maxHealth);
+    }
 
     private void Die(Pawn source)
     {

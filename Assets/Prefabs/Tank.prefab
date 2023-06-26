@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1512244158982021741}
   - component: {fileID: 2067465979799774755}
   - component: {fileID: 6878356373435081434}
+  - component: {fileID: 788397716120793613}
   m_Layer: 0
   m_Name: Tank
   m_TagString: Untagged
@@ -50,8 +51,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae84f663c9c76ff4c97647a6ababd25c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardMoveSpeed: 5
-  backwardMoveSpeed: 3
+  baseForwardMoveSpeed: 30
+  moveSpeedMultiplier: 1
+  moveSpeedBonus: 0
+  backwardMoveSpeed: 25
   tankRotationSpeed: 60
   fireForce: 1000
   damageDone: 20
@@ -111,6 +114,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0b0cc22012375d4697fb89b141b8976, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &788397716120793613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1971935871517008801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0b5616ba30a5d6468a2cde9573b2fcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 100
+  maxHealth: 100
 --- !u!1 &9042914072699975378
 GameObject:
   m_ObjectHideFlags: 0

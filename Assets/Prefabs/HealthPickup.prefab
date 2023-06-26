@@ -110,3 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20aa01abea5a9cd44a29d3c612e965b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthPowerup:
+    duration: 0
+    isPermanent: 1
+    healthToAdd: 10

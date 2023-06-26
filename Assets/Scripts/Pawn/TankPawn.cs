@@ -10,8 +10,10 @@ public class TankPawn : Pawn
     public const float ForwardDirection = 1f;
     public const float BackwardDirection = -1f;
 
-    public float forwardMoveSpeed = 5f;
-    public float backwardMoveSpeed = 3f;
+    public float baseForwardMoveSpeed = 30f;
+    public float moveSpeedMultiplier = 1f;
+    public float moveSpeedBonus = 0f;
+    public float backwardMoveSpeed = 25f;
     public float tankRotationSpeed = 60f;
     public float fireForce = 1000f;
     public float damageDone = 20f;
@@ -19,6 +21,14 @@ public class TankPawn : Pawn
     public GameObject shellPrefab;
     public float shotCooldownTime = 1f;
     private float secondsSinceLastShot = Mathf.Infinity;
+
+    public float CalculatedForwardMoveSpeed
+    {
+        get
+        {
+            return (baseForwardMoveSpeed * moveSpeedMultiplier) + moveSpeedBonus;
+        }
+    }
 
     public override void MoveBackward()
     {
@@ -28,7 +38,7 @@ public class TankPawn : Pawn
 
     public override void MoveForward()
     {
-        mover.Move(forwardMoveSpeed, ForwardDirection);
+        mover.Move(CalculatedForwardMoveSpeed, ForwardDirection);
         base.MoveForward();
     }
 
