@@ -44,3 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f59812b877ac745b29251648ae3c0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickupPrefab: {fileID: 170245439837942705, guid: 271fe51d7b5b321469db56699ae0f429, type: 3}
+  spawnDelay: 0

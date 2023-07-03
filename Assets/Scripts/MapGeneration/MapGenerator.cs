@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+ 
 public class MapGenerator : MonoBehaviour
 {
     public List<GameObject> roomPrefabs;
@@ -10,6 +12,9 @@ public class MapGenerator : MonoBehaviour
     public float roomWidth = 50f;
     public float roomHeight = 50f;
     private Room[,] grid;
+    public int mapSeed = 13;
+    public enum RandomType { Seeded, Random, MapOfTheDay }
+    public RandomType randomType = RandomType.Seeded;
 
     private void Start()
     {
@@ -19,11 +24,37 @@ public class MapGenerator : MonoBehaviour
     // Returns a random room
     public GameObject RandomRoomPrefab()
     {
-        return roomPrefabs[Random.Range(0, roomPrefabs.Count)];
+        return roomPrefabs[UnityEngine.Random.Range(0, roomPrefabs.Count)];
+    }
+    public int DateToInt(DateTime dateToUse)
+    {
+        // Add our date up and return it
+        return (dateToUse.Month * 1000000) + (dateToUse.Day * 10000) + dateToUse.Year;
+
+    }
+
+    public int DateAndTimeToInt(DateTime dateToUse)
+    {
+        return DateToInt(dateToUse) + dateToUse.Hour + dateToUse.Minute + dateToUse.Second + dateToUse.Millisecond;
     }
 
     public void GenerateMap()
     {
+        switch (randomType)
+        {
+            case RandomType.Random:
+                mapSeed = DateAndTimeToInt(DateTime.Now);
+                break;
+            case RandomType.Seeded:
+                break;
+            case RandomType.MapOfTheDay:
+                mapSeed = DateToInt(DateTime.Now.Date);
+                break;
+            default:
+                Debug.LogWarning("Unrecognized type of random map");
+                break;
+        }
+        UnityEngine.Random.InitState(mapSeed);
         // Clear out the grid - "column" is our X, "row" is our Y
         grid = new Room[columns, rows];
 
