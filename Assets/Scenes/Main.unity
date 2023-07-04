@@ -310,6 +310,8 @@ MonoBehaviour:
   columns: 3
   roomWidth: 50
   roomHeight: 50
+  mapSeed: 13
+  randomType: 2
 --- !u!4 &1390889900
 Transform:
   m_ObjectHideFlags: 0
