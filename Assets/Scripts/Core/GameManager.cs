@@ -5,10 +5,22 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public int points = 0;
+    public List<int> points = new List<int>(); // TODO: Consider moving into Controller
     public List<Controller> players = new List<Controller>();
     public List<Controller> enemies = new List<Controller>();
     public List<PawnSpawnPoint> pawnSpawnPoints = new List<PawnSpawnPoint>();
+
+
+    public enum GameState { TitleState, OptionsState, GameplayState, GameOverState, Credits, Pause }
+    public GameState currentGameState = GameState.TitleState;
+    private GameState previousGameState;
+
+
+    public void ChangeGameState(GameState state)
+    {
+        previousGameState = currentGameState;
+        currentGameState = state;
+    }
 
     private void Awake()
     {
