@@ -18,7 +18,7 @@ public class MapGenerator : MonoBehaviour
 
     private void Start()
     {
-        GenerateMap();
+        //GenerateMap();
     }
 
     // Returns a random room
