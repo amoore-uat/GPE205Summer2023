@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
     }
 
     // Update is called once per frame
@@ -32,12 +32,12 @@ public class UIManager : MonoBehaviour
 
     public void ShowPauseMenu()
     {
-
+        PauseMenuObject.SetActive(true);
     }
 
     public void HidePauseMenu()
     {
-
+        PauseMenuObject.SetActive(false);
     }
 
     public void ShowOptionsMenu()
@@ -47,7 +47,7 @@ public class UIManager : MonoBehaviour
 
     public void HideOptionsMenu()
     {
-
+        OptionsMenuObject.SetActive(false);
     }
 
     public void ShowGameOver()
@@ -58,5 +58,48 @@ public class UIManager : MonoBehaviour
     public void HideGameOver()
     {
 
+    }
+
+    public void HandleGameStateChanged(GameState previousState, GameState newState)
+    {
+        switch (previousState)
+        {
+            case GameState.TitleState:
+                HideTitleScreenUI();
+                break;
+            case GameState.OptionsState:
+                HideOptionsMenu();
+                break;
+            case GameState.GameplayState:
+                break;
+            case GameState.GameOverState:
+                HideGameOver();
+                break;
+            case GameState.Credits:
+                // Hide Credits
+                break;
+            case GameState.Pause:
+                HidePauseMenu();
+                break;
+        }
+        switch (newState)
+        {
+            case GameState.TitleState:
+                ShowTitleScreenUI();
+                break;
+            case GameState.OptionsState:
+                ShowOptionsMenu();
+                break;
+            case GameState.GameplayState:
+                break;
+            case GameState.GameOverState:
+                ShowGameOver();
+                break;
+            case GameState.Credits:
+                break;
+            case GameState.Pause:
+                ShowPauseMenu();
+                break;
+        }
     }
 }

@@ -10,6 +10,7 @@ public class PlayerController : Controller
     public KeyCode leftKeyCode;
     public KeyCode rightKeyCode;
     public KeyCode shootKeyCode;
+    public KeyCode pauseKeyCode;
 
     
 
@@ -43,25 +44,32 @@ public class PlayerController : Controller
 
     private void ProcessInputs()
     {
-        if (Input.GetKey(forwardKeyCode))
+        if (!GameManager.Instance.IsPaused)
         {
-            pawn.MoveForward();
+            if (Input.GetKey(forwardKeyCode))
+            {
+                pawn.MoveForward();
+            }
+            if (Input.GetKey(backwardKeyCode))
+            {
+                pawn.MoveBackward();
+            }
+            if (Input.GetKey(leftKeyCode))
+            {
+                pawn.Rotate(-1f);
+            }
+            if (Input.GetKey(rightKeyCode))
+            {
+                pawn.Rotate(1f);
+            }
+            if (Input.GetKeyDown(shootKeyCode))
+            {
+                pawn.Shoot();
+            }
         }
-        if (Input.GetKey(backwardKeyCode))
+        if (Input.GetKeyDown(pauseKeyCode))
         {
-            pawn.MoveBackward();
-        }
-        if (Input.GetKey(leftKeyCode))
-        {
-            pawn.Rotate(-1f);
-        }
-        if (Input.GetKey(rightKeyCode))
-        {
-            pawn.Rotate(1f);
-        }
-        if (Input.GetKeyDown(shootKeyCode))
-        {
-            pawn.Shoot();
+            GameManager.Instance.TogglePause();
         }
     }
 }

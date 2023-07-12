@@ -1,18 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
+public class GameStateChangedEvent : UnityEvent<GameState, GameState>
+{
+
+}
+public enum GameState { TitleState, OptionsState, GameplayState, GameOverState, Credits, Pause }
 public class GameManager : MonoBehaviour
 {
+    public GameStateChangedEvent OnGameStateChanged = new GameStateChangedEvent();
     public static GameManager Instance;
     public List<int> points = new List<int>(); // TODO: Consider moving into Controller
-    public GameObject UIManager; // TODO: Eliminate this variable
+    //public GameObject UIManager; // TODO: Eliminate this variable
     public List<Controller> players = new List<Controller>();
     public List<Controller> enemies = new List<Controller>();
     public List<PawnSpawnPoint> pawnSpawnPoints = new List<PawnSpawnPoint>();
 
+    public bool IsPaused
+    {
+        get
+        {
+            return (currentGameState == GameState.Pause);
+        }
+    }
 
-    public enum GameState { TitleState, OptionsState, GameplayState, GameOverState, Credits, Pause }
     public GameState currentGameState = GameState.TitleState;
     private GameState previousGameState;
 
@@ -21,6 +34,7 @@ public class GameManager : MonoBehaviour
     {
         previousGameState = currentGameState;
         currentGameState = state;
+        OnGameStateChanged.Invoke(previousGameState, currentGameState);
     }
 
     private void Awake()
@@ -39,7 +53,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     void SpawnPlayer()
@@ -67,20 +81,50 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         ChangeGameState(GameState.GameplayState);
+        Time.timeScale = 1f;
     }
 
     public void OpenOptionsMenu()
     {
         ChangeGameState(GameState.OptionsState);
-        // TODO: Refactor to use a unity event
-        if (UIManager)
-        {
-            UIManager.GetComponent<UIManager>().ShowOptionsMenu();
-        }
     }
 
     public void CloseOptionsMenu()
     {
         ChangeGameState(previousGameState);
+    }
+
+    public void ChangeToPreviousGameState()
+    {
+        ChangeGameState(previousGameState);
+    }
+
+    public void ChangeStateToTitle()
+    {
+        ChangeGameState(GameState.TitleState);
+    }
+
+    public void PauseGame()
+    {
+        ChangeGameState(GameState.Pause);
+        Time.timeScale = 0f;
+    }
+
+    public void UnpauseGame()
+    {
+        ChangeGameState(GameState.GameplayState);
+        Time.timeScale = 1f;
+    }
+
+    public void TogglePause()
+    {
+        if (currentGameState == GameState.Pause)
+        {
+            UnpauseGame();
+        }
+        else
+        {
+            PauseGame();
+        }
     }
 }
