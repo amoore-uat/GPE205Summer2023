@@ -12,7 +12,9 @@ public class GameManager : MonoBehaviour
 {
     public GameStateChangedEvent OnGameStateChanged = new GameStateChangedEvent();
     public static GameManager Instance;
+    public int numberOfPlayers = 2;
     public List<int> points = new List<int>(); // TODO: Consider moving into Controller
+    public List<int> lives = new List<int>();
     //public GameObject UIManager; // TODO: Eliminate this variable
     public List<Controller> players = new List<Controller>();
     public List<Controller> enemies = new List<Controller>();
@@ -53,7 +55,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        AdjustPlayerCameras();
     }
 
     void SpawnPlayer()
@@ -64,7 +66,39 @@ public class GameManager : MonoBehaviour
             spawn = GetRandomSpawnPoint();
             // MAKE SURE THERE ARE ENOUGH PAWN SPAWN POINTS SO THE GAME NEVER BREAKS
         }
+        // TODO: Make it actually spawn some tanks plz
+        // TODO: Refactor this hacky workaround
+        AdjustPlayerCameras();
         // Instantiate()
+    }
+
+    public void AdjustPlayerCameras()
+    {
+        if (numberOfPlayers == 1)
+        {
+            // Get player 1's camera
+            Camera player1Camera = players[0].GetComponentInChildren<Camera>();
+
+            // Set player 1's camera location
+            Debug.Log(player1Camera.rect);
+
+            // Set player 1's camera location
+            player1Camera.rect = new Rect(0, 0, 1f, 1f);
+
+        }
+        else
+        {
+            // Get player 1's camera
+            Camera player1Camera = players[0].GetComponentInChildren<Camera>();
+            Camera player2Camera = players[1].GetComponentInChildren<Camera>();
+
+            // Set player 1's camera location
+            player1Camera.rect = new Rect(0, 0, 0.5f, 1f);
+            //Debug.Log(player1Camera.rect);
+
+            // Set player 2's camera location
+            player2Camera.rect = new Rect(0.5f, 0f, 0.5f, 1f);
+        }
     }
 
     private PawnSpawnPoint GetRandomSpawnPoint()

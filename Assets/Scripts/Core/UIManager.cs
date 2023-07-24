@@ -12,14 +12,17 @@ public class UIManager : MonoBehaviour
     public GameObject GameOverObject;
 
     public Slider mainVolumeSlider;
+    public Slider bgmVolumeSlider;
+    public Slider sfxVolumeSlider;
 
     // Start is called before the first frame update
     void Start()
     {
         GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
-        // TODO: Fix this.
+
         mainVolumeSlider.value = AudioManager.Instance.masterVolume;
-        // TODO: Add music and SFX sliders too
+        bgmVolumeSlider.value = AudioManager.Instance.bgmVolume;
+        sfxVolumeSlider.value = AudioManager.Instance.sfxVolume;
     }
 
     // Update is called once per frame

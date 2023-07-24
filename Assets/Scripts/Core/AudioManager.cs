@@ -50,6 +50,7 @@ public class AudioManager : MonoBehaviour
 
     public void OnMasterVolumeChange(float value)
     {
+        masterVolume = Mathf.Clamp01(value);
         // Start with the slider value (assuming our slider runs from 0 to 1)
         float newVolume = ConvertToDecibel(value);
 
@@ -59,6 +60,7 @@ public class AudioManager : MonoBehaviour
 
     public void OnSFXVolumeChange(float value)
     {
+        sfxVolume = Mathf.Clamp01(value);
         // Start with the slider value (assuming our slider runs from 0 to 1)
         float newVolume = ConvertToDecibel(value);
 
@@ -68,6 +70,7 @@ public class AudioManager : MonoBehaviour
 
     public void OnBGMVolumeChange(float value)
     {
+        bgmVolume = Mathf.Clamp01(value);
         // Start with the slider value (assuming our slider runs from 0 to 1)
         float newVolume = ConvertToDecibel(value);
 
