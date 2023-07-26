@@ -5,6 +5,13 @@ using UnityEngine;
 public abstract class Controller : MonoBehaviour
 {
     protected Pawn pawn;
+    public Pawn ControlledPawn
+    {
+        get
+        {
+            return pawn;
+        }
+    }
     public virtual void Start()
     {
 

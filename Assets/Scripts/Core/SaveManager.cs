@@ -16,6 +16,7 @@ public class SaveManager : MonoBehaviour
         PlayerPrefs.SetFloat("MasterVolume", AudioManager.Instance.masterVolume);
         PlayerPrefs.SetFloat("BGMVolume", AudioManager.Instance.bgmVolume);
         PlayerPrefs.SetFloat("SFXVolume", AudioManager.Instance.sfxVolume);
+
     }
 
     public void LoadPlayerPreferences()

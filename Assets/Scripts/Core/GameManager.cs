@@ -15,10 +15,35 @@ public class GameManager : MonoBehaviour
     public int numberOfPlayers = 2;
     public List<int> points = new List<int>(); // TODO: Consider moving into Controller
     public List<int> lives = new List<int>();
-    //public GameObject UIManager; // TODO: Eliminate this variable
     public List<Controller> players = new List<Controller>();
     public List<Controller> enemies = new List<Controller>();
     public List<PawnSpawnPoint> pawnSpawnPoints = new List<PawnSpawnPoint>();
+
+    public bool PlayersHaveLives
+    {
+        get
+        {
+            int totalLives = 0;
+            foreach (int playerLives in lives)
+            {
+                totalLives += playerLives;
+            }
+            return (totalLives > 0);
+        }
+    }
+
+    public int GetPlayerIndex(Pawn source)
+    {
+        foreach (Controller controller in players)
+        {
+            if (controller.ControlledPawn == source)
+            {
+                return (players.IndexOf(controller));
+            }
+        }
+
+        return -1;
+    }
 
     public bool IsPaused
     {

@@ -6,6 +6,7 @@ public abstract class Pawn : MonoBehaviour
 {
     protected Mover mover;
     protected Shooter shooter;
+    public int pointsOnKilled = 100;
     // Start is called before the first frame update
     public virtual void Start()
     {

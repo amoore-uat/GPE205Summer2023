@@ -14,11 +14,23 @@ public class MapGenerator : MonoBehaviour
     private Room[,] grid;
     public int mapSeed = 13;
     public enum RandomType { Seeded, Random, MapOfTheDay }
-    public RandomType randomType = RandomType.Seeded;
+    public RandomType randomType = RandomType.MapOfTheDay;
 
     private void Start()
     {
         //GenerateMap();
+    }
+
+    public void ChangeRandomization(bool isMapOfDay)
+    {
+        if (isMapOfDay)
+        {
+            randomType = RandomType.MapOfTheDay;
+        }
+        else
+        {
+            randomType = RandomType.Random;
+        }
     }
 
     // Returns a random room

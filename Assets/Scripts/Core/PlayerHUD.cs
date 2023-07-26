@@ -22,7 +22,7 @@ public class PlayerHUD : MonoBehaviour
     public void UpdateScore()
     {
         // TODO: Use the above to finish this
-        scoreText.text = "Score: " + GameManager.Instance.points[0];
+        //scoreText.text = "Score: " + GameManager.Instance.points[0];
     }
 
     public void UpdateLives()
