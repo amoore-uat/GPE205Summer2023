@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     public GameObject OptionsMenuObject;
     public GameObject PauseMenuObject;
     public GameObject GameOverObject;
+    public GameObject UICamera;
 
     public Slider mainVolumeSlider;
     public Slider bgmVolumeSlider;
@@ -29,6 +30,14 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void ToggleUICamera()
+    {
+        if (UICamera != null)
+        {
+            UICamera.SetActive(!UICamera.activeInHierarchy);
+        }
     }
 
     public void HideTitleScreenUI()

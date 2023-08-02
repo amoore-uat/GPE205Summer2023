@@ -12,12 +12,13 @@ public class GameManager : MonoBehaviour
 {
     public GameStateChangedEvent OnGameStateChanged = new GameStateChangedEvent();
     public static GameManager Instance;
-    public int numberOfPlayers = 2;
+    public int numberOfPlayers = 1;
     public List<int> points = new List<int>(); // TODO: Consider moving into Controller
     public List<int> lives = new List<int>();
     public List<Controller> players = new List<Controller>();
     public List<Controller> enemies = new List<Controller>();
     public List<PawnSpawnPoint> pawnSpawnPoints = new List<PawnSpawnPoint>();
+    public GameObject playerPrefab;
 
     public bool PlayersHaveLives
     {
@@ -80,21 +81,33 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        AdjustPlayerCameras();
+        //AdjustPlayerCameras();
     }
 
-    void SpawnPlayer()
+    public void SpawnPlayer()
     {
+        if (pawnSpawnPoints.Count < numberOfPlayers)
+        {
+            Debug.LogError("Not enough spawn points");
+            return;
+        }
         PawnSpawnPoint spawn = GetRandomSpawnPoint();
         while (spawn.spawnedPawn != null)
         {
             spawn = GetRandomSpawnPoint();
+            GameObject spawnedPlayer = Instantiate(playerPrefab, spawn.transform.position, Quaternion.identity);
+            spawn.spawnedPawn = spawnedPlayer.GetComponent<Pawn>();
+            players.Add(spawnedPlayer.GetComponent<Controller>());
             // MAKE SURE THERE ARE ENOUGH PAWN SPAWN POINTS SO THE GAME NEVER BREAKS
         }
-        // TODO: Make it actually spawn some tanks plz
-        // TODO: Refactor this hacky workaround
-        AdjustPlayerCameras();
-        // Instantiate()
+    }
+
+    public void SpawnPlayers()
+    {
+        if (players.Count < numberOfPlayers)
+        {
+            SpawnPlayer();
+        }
     }
 
     public void AdjustPlayerCameras()

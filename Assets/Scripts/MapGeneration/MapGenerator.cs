@@ -2,10 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
- 
+[System.Serializable]
+ public class MapGeneratedEvent : UnityEvent
+{
+
+}
 public class MapGenerator : MonoBehaviour
 {
+    public MapGeneratedEvent OnMapGenerated = new MapGeneratedEvent();
     public List<GameObject> roomPrefabs;
     public int rows = 3;
     public int columns = 3;
@@ -115,6 +121,8 @@ public class MapGenerator : MonoBehaviour
                 }
             }
         }
+
+        OnMapGenerated.Invoke();
     }
 
     public void OpenDoors()
