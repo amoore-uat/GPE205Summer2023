@@ -122,7 +122,7 @@ public class MapGenerator : MonoBehaviour
             }
         }
 
-        OnMapGenerated.Invoke();
+        //OnMapGenerated.Invoke();
     }
 
     public void OpenDoors()

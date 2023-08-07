@@ -19,6 +19,16 @@ public class GameManager : MonoBehaviour
     public List<Controller> enemies = new List<Controller>();
     public List<PawnSpawnPoint> pawnSpawnPoints = new List<PawnSpawnPoint>();
     public GameObject playerPrefab;
+    public GameObject enemyPrefab;
+
+    public IEnumerator SpawnTanksNextFrame()
+    {
+        // Write code here
+        yield return null;
+        // This code runs on the next frame
+        SpawnPlayers();
+        SpawnEnemy();
+    }
 
     public bool PlayersHaveLives
     {
@@ -83,36 +93,63 @@ public class GameManager : MonoBehaviour
     {
         //AdjustPlayerCameras();
     }
+    public void SpawnEnemy()
+    {
+        if (pawnSpawnPoints.Count <= (players.Count + enemies.Count))
+        {
+            Debug.LogError("Need spawn points");
+            return;
+        }
+        PawnSpawnPoint spawn = GetRandomSpawnPoint();
+        if (spawn.spawnedPawn == null)
+        {
+            GameObject spawnedEnemy = Instantiate(enemyPrefab, spawn.transform.position, Quaternion.identity);
+            spawn.spawnedPawn = spawnedEnemy.GetComponent<Pawn>();
+            enemies.Add(spawnedEnemy.GetComponent<Controller>());
+            // MAKE SURE THERE ARE ENOUGH PAWN SPAWN POINTS SO THE GAME NEVER BREAKS
+        }
+        else
+        {
+            SpawnEnemy();
+        }
 
+    }
     public void SpawnPlayer()
     {
-        if (pawnSpawnPoints.Count < numberOfPlayers)
+        if (pawnSpawnPoints.Count <= numberOfPlayers)
         {
             Debug.LogError("Not enough spawn points");
             return;
         }
         PawnSpawnPoint spawn = GetRandomSpawnPoint();
-        while (spawn.spawnedPawn != null)
+        if (spawn.spawnedPawn == null)
         {
-            spawn = GetRandomSpawnPoint();
             GameObject spawnedPlayer = Instantiate(playerPrefab, spawn.transform.position, Quaternion.identity);
             spawn.spawnedPawn = spawnedPlayer.GetComponent<Pawn>();
             players.Add(spawnedPlayer.GetComponent<Controller>());
             // MAKE SURE THERE ARE ENOUGH PAWN SPAWN POINTS SO THE GAME NEVER BREAKS
+            AdjustPlayerCameras();
+        }
+        else
+        {
+            SpawnPlayer();
         }
     }
 
     public void SpawnPlayers()
     {
-        if (players.Count < numberOfPlayers)
+        
+        while (players.Count < numberOfPlayers)
         {
+            Debug.Log("Player Count: " + players.Count);
+            Debug.Log("Number of Players: " + numberOfPlayers);
             SpawnPlayer();
         }
     }
 
     public void AdjustPlayerCameras()
     {
-        if (numberOfPlayers == 1)
+        if (players.Count == 1)
         {
             // Get player 1's camera
             Camera player1Camera = players[0].GetComponentInChildren<Camera>();
@@ -154,6 +191,7 @@ public class GameManager : MonoBehaviour
     {
         ChangeGameState(GameState.GameplayState);
         Time.timeScale = 1f;
+        StartCoroutine(SpawnTanksNextFrame());
     }
 
     public void OpenOptionsMenu()
