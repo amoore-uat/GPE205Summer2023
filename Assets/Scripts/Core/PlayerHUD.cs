@@ -10,6 +10,7 @@ public class PlayerHUD : MonoBehaviour
     private int playerIndex;
     public TMP_Text livesText;
     public TMP_Text scoreText;
+    public Image healthBar;
 
     private void Start()
     {
@@ -17,6 +18,8 @@ public class PlayerHUD : MonoBehaviour
         // TODO: Create a for loop that loops through the player controllers on gamemanger
         // and returns the index that matches.
         UpdateScore();
+        // This also will work...
+        // gameObject.GetComponentInParent<Health>().OnHealthChanged.AddListener(UpdateHealthBar);
     }
 
     public void UpdateScore()
@@ -28,5 +31,10 @@ public class PlayerHUD : MonoBehaviour
     public void UpdateLives()
     {
 
+    }
+
+    public void UpdateHealthBar(float currentHealth, float maxHealth)
+    {
+        healthBar.fillAmount = currentHealth / maxHealth;
     }
 }

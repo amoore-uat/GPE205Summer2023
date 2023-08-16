@@ -13,11 +13,13 @@ public class AIController : Controller
     public GameObject target;
     public Transform post;
     public float fieldOfView = 30f;
+    public Waypoint currentWaypoint;
 
     public override void Start()
     {
         pawn = GetComponent<Pawn>();
         post = transform;
+        currentWaypoint = GameManager.Instance.GetRandomWaypoint();
         base.Start();
     }
 

@@ -10,7 +10,7 @@ public class HealthChanged : UnityEvent<float,float>
 
 }
 
-
+[DisallowMultipleComponent]
 public class Health : MonoBehaviour
 {
     private const float minHealth = 0f;
@@ -25,8 +25,8 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(float damage, Pawn source)
     {
-        OnHealthChanged.Invoke(currentHealth,maxHealth);
         currentHealth = Mathf.Clamp(currentHealth - damage, minHealth, maxHealth);
+        OnHealthChanged.Invoke(currentHealth, maxHealth);
         Debug.Log(source.name + " did " + damage + " damage to " + gameObject.name);
         if (Mathf.Approximately(currentHealth, minHealth))
         {
@@ -42,6 +42,7 @@ public class Health : MonoBehaviour
             return;
         }
         currentHealth = Mathf.Clamp(currentHealth + value, minHealth, maxHealth);
+        OnHealthChanged.Invoke(currentHealth, maxHealth);
     }
 
     private void Die(Pawn source)
@@ -53,6 +54,12 @@ public class Health : MonoBehaviour
         {
             GameManager.Instance.points[playerIndex] += source.pointsOnKilled;
         }
+        int myIndex = GameManager.Instance.GetPlayerIndex(gameObject.GetComponent<Pawn>());
+        if (myIndex >= 0)
+        {
+            StartCoroutine(GameManager.Instance.SpawnPlayerTankNextFrame());
+        }
+
         Destroy(gameObject);
     }
 }

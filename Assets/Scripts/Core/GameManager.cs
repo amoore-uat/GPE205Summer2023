@@ -8,6 +8,8 @@ public class GameStateChangedEvent : UnityEvent<GameState, GameState>
 
 }
 public enum GameState { TitleState, OptionsState, GameplayState, GameOverState, Credits, Pause }
+
+[DisallowMultipleComponent]
 public class GameManager : MonoBehaviour
 {
     public GameStateChangedEvent OnGameStateChanged = new GameStateChangedEvent();
@@ -18,8 +20,10 @@ public class GameManager : MonoBehaviour
     public List<Controller> players = new List<Controller>();
     public List<Controller> enemies = new List<Controller>();
     public List<PawnSpawnPoint> pawnSpawnPoints = new List<PawnSpawnPoint>();
+    public List<Waypoint> waypoints = new List<Waypoint>();
     public GameObject playerPrefab;
     public GameObject enemyPrefab;
+    public int maxEnemyCount = 4;
 
     public IEnumerator SpawnTanksNextFrame()
     {
@@ -27,8 +31,18 @@ public class GameManager : MonoBehaviour
         yield return null;
         // This code runs on the next frame
         SpawnPlayers();
-        SpawnEnemy();
+        SpawnEnemies();
+        //SpawnEnemy();
     }
+
+    public IEnumerator SpawnPlayerTankNextFrame()
+    {
+        // Write code here
+        yield return null;
+        // This code runs on the next frame
+        SpawnPlayer();
+    }
+
 
     public bool PlayersHaveLives
     {
@@ -74,6 +88,17 @@ public class GameManager : MonoBehaviour
         currentGameState = state;
         OnGameStateChanged.Invoke(previousGameState, currentGameState);
     }
+
+    public void SpawnEnemies()
+    {
+        while (enemies.Count < maxEnemyCount)
+        {
+            Debug.Log("Enemy Count: " + enemies.Count);
+            Debug.Log("Max Number of Enemies: " + maxEnemyCount);
+            SpawnEnemy();
+        }
+    }
+
 
     private void Awake()
     {
@@ -138,12 +163,13 @@ public class GameManager : MonoBehaviour
 
     public void SpawnPlayers()
     {
-        
+        lives = new List<int>();
         while (players.Count < numberOfPlayers)
         {
             Debug.Log("Player Count: " + players.Count);
             Debug.Log("Number of Players: " + numberOfPlayers);
             SpawnPlayer();
+            lives.Add(3);
         }
     }
 
@@ -179,6 +205,12 @@ public class GameManager : MonoBehaviour
     private PawnSpawnPoint GetRandomSpawnPoint()
     {
         return pawnSpawnPoints[Random.Range(0, pawnSpawnPoints.Count)];
+    }
+
+    public Waypoint GetRandomWaypoint()
+    {
+        return waypoints[Random.Range(0, waypoints.Count)];
+
     }
 
     public void QuitGame()
